@@ -8,6 +8,7 @@ import SignUp from '../SignUp/SignUp'
 import SignIn from '../SignIn/SignIn'
 import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
+import InventoryIndex from './../InventoryIndex.js'
 
 class App extends Component {
   constructor () {
@@ -17,6 +18,7 @@ class App extends Component {
       user: null,
       msgAlerts: []
     }
+    this.setUser = this.setUser.bind(this)
   }
 
   setUser = user => this.setState({ user })
@@ -53,6 +55,9 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword msgAlert={this.msgAlert} user={user} />
+          )} />
+          <Route user={user} path='/inventory' render={() => (
+            <InventoryIndex msgAlert={this.msgAlert} user={user} />
           )} />
         </main>
       </Fragment>

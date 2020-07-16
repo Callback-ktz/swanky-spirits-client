@@ -18,7 +18,7 @@ class App extends Component {
       user: null,
       msgAlerts: []
     }
-    this.setUser = this.setUser.bind(this)
+    // this.setUser = this.setUser.bind(this)
   }
 
   setUser = user => this.setState({ user })

@@ -35,32 +35,26 @@ class InventoryIndex extends React.Component {
       inventoryJSX = <p>No items currently in inventory</p>
     } else {
       inventoryJSX = (
-        <ul>
-          {this.state.inventory.map(item => {
-            return (
-              <React.Fragment key={item.code}>
-                <Table responsive="md" striped bordered hover variant="dark">
-                  <thead>
-                    <tr>
-                      <th>Code</th>
-                      <th>Name</th>
-                      <th>Unit Price</th>
-                      <th>Quantity</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>{item.code}</td>
-                      <td>{item.name}</td>
-                      <td>{item.unit_price}</td>
-                      <td>{item.quantity}</td>
-                    </tr>
-                  </tbody>
-                </Table>
-              </React.Fragment>
-            )
-          })}
-        </ul>
+        <Table responsive="md" striped bordered hover variant="dark">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Name</th>
+              <th>Unit Price</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.inventory.map(item => (
+              <tr key={item._id}>
+                <td>{item.code}</td>
+                <td>{item.name}</td>
+                <td>{item.unit_price}</td>
+                <td>{item.quantity}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
       )
     }
     return (

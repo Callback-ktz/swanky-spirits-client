@@ -1,4 +1,5 @@
 import React from 'react'
+import Table from 'react-bootstrap/Table'
 import axios from 'axios'
 import apiUrl from './../apiConfig.js'
 
@@ -37,12 +38,26 @@ class InventoryIndex extends React.Component {
         <ul>
           {this.state.inventory.map(item => {
             return (
-              <li key={item.code}>
-                <li code={item.code}>{item.code}</li>
-                <li name={item.name}>{item.name}</li>
-                <li unit_price={item.unit_price}>{item.unit_price}</li>
-                <li quantity={item.quantity}>{item.quantity}</li>
-              </li>
+              <React.Fragment key={item.code}>
+                <Table responsive="md" striped bordered hover variant="dark">
+                  <thead>
+                    <tr>
+                      <th>Code</th>
+                      <th>Name</th>
+                      <th>Unit Price</th>
+                      <th>Quantity</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{item.code}</td>
+                      <td>{item.name}</td>
+                      <td>{item.unit_price}</td>
+                      <td>{item.quantity}</td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </React.Fragment>
             )
           })}
         </ul>

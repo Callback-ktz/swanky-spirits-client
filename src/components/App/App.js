@@ -18,7 +18,7 @@ class App extends Component {
       user: null,
       msgAlerts: []
     }
-    this.setUser = this.setUser.bind(this)
+    // this.setUser = this.setUser.bind(this)
   }
 
   setUser = user => this.setState({ user })
@@ -56,7 +56,7 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword msgAlert={this.msgAlert} user={user} />
           )} />
-          <Route user={user} path='/inventory' render={() => (
+          <AuthenticatedRoute user={user} path='/inventory' render={() => (
             <InventoryIndex msgAlert={this.msgAlert} user={user} />
           )} />
         </main>

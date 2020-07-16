@@ -55,6 +55,36 @@ class InventoryIndex extends React.Component {
                       <td>{item.unit_price}</td>
                       <td>{item.quantity}</td>
                     </tr>
+                    <tr>
+                      <td>{item.code}</td>
+                      <td>{item.name}</td>
+                      <td>{item.unit_price}</td>
+                      <td>{item.quantity}</td>
+                    </tr>
+                    <tr>
+                      <td>{item.code}</td>
+                      <td>{item.name}</td>
+                      <td>{item.unit_price}</td>
+                      <td>{item.quantity}</td>
+                    </tr>
+                    <tr>
+                      <td>{item.code}</td>
+                      <td>{item.name}</td>
+                      <td>{item.unit_price}</td>
+                      <td>{item.quantity}</td>
+                    </tr>
+                    <tr>
+                      <td>{item.code}</td>
+                      <td>{item.name}</td>
+                      <td>{item.unit_price}</td>
+                      <td>{item.quantity}</td>
+                    </tr>
+                    <tr>
+                      <td>{item.code}</td>
+                      <td>{item.name}</td>
+                      <td>{item.unit_price}</td>
+                      <td>{item.quantity}</td>
+                    </tr>
                   </tbody>
                 </Table>
               </React.Fragment>

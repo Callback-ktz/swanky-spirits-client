@@ -13,7 +13,7 @@ class EditableField extends React.Component {
     return (
       this.state.editing ? (
         <input
-          type="text"
+          type={this.props.type || 'text'}
           value={this.state.value}
           pattern={this.props.pattern}
           ref={this.textInput}

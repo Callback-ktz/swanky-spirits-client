@@ -4,6 +4,8 @@ import Button from 'react-bootstrap/Button'
 import EditableField from './EditableField'
 import axios from 'axios'
 import apiUrl from './../apiConfig.js'
+// import InputGroup from 'react-bootstrap/InputGroup'
+// import FormControl from 'react-bootstrap/FormControl'
 
 class InventoryIndex extends React.Component {
   state= {
@@ -101,10 +103,10 @@ class InventoryIndex extends React.Component {
                     }}
                   />
                 </td>
-                <td style={{ display: 'flex' }}>
-                  $&nbsp;
+                <td style={{ display: 'flex' }} className="editNumber">
+                  {/* $&nbsp; */}
                   <EditableField
-                    type="number"
+                    type='number'
                     value={item.unit_price}
                     onUpdate={(value) => {
                       this.updateInventoryItem(item._id, { unit_price: value })

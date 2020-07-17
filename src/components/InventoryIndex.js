@@ -109,7 +109,7 @@ class InventoryIndex extends React.Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.inventory.map(item => (
+              {this.state.inventory.reverse().map(item => (
                 <tr key={item._id}>
                   <td>
                     {item.owner.email}

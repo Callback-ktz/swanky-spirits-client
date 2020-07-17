@@ -101,7 +101,8 @@ class InventoryIndex extends React.Component {
                     }}
                   />
                 </td>
-                <td>
+                <td style={{ display: 'flex' }}>
+                  $&nbsp;
                   <EditableField
                     value={item.unit_price}
                     onUpdate={(value) => {

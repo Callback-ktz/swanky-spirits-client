@@ -9,6 +9,7 @@ import SignIn from '../SignIn/SignIn'
 import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
 import InventoryIndex from './../InventoryIndex.js'
+import InventoryCreate from './../InventoryCreate'
 
 class App extends Component {
   constructor () {
@@ -44,6 +45,7 @@ class App extends Component {
           />
         ))}
         <main className="container">
+          <InventoryCreate user={user}/>
           <Route path='/sign-up' render={() => (
             <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
           )} />

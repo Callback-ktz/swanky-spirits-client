@@ -1,6 +1,7 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
+import EditableField from './EditableField'
 import axios from 'axios'
 import apiUrl from './../apiConfig.js'
 
@@ -45,6 +46,23 @@ class InventoryIndex extends React.Component {
       })
   }
 
+  updateInventoryItem (id, data) {
+    return axios({
+      url: apiUrl + '/inventory/' + id,
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Bearer ${this.props.user.token}`
+      },
+      data: { inventory: data }
+    })
+      .then(() => {
+        this.setState({
+          inventory: this.state.inventory.map(item => (
+            item._id === id ? { ...item, ...data } : item))
+        })
+      })
+  }
+
   render () {
     console.log(this.state)
     let inventoryJSX
@@ -54,34 +72,57 @@ class InventoryIndex extends React.Component {
       inventoryJSX = <p>No items currently in inventory</p>
     } else {
       inventoryJSX = (
-        <React.Fragment>
-          <Table striped bordered hover variant="dark">
-            <thead>
-              <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Unit Price</th>
-                <th>Quantity</th>
-                <th width={'10%'}></th>
+        <Table striped bordered hover variant="dark">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Name</th>
+              <th>Unit Price</th>
+              <th>Quantity</th>
+              <th width={'10%'}></th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.inventory.map(item => (
+              <tr key={item._id}>
+                <td>
+                  <EditableField
+                    value={item.code}
+                    onUpdate={(value) => {
+                      this.updateInventoryItem(item._id, { code: value })
+                    }}
+                  />
+                </td>
+                <td>
+                  <EditableField
+                    value={item.name}
+                    onUpdate={(value) => {
+                      this.updateInventoryItem(item._id, { name: value })
+                    }}
+                  />
+                </td>
+                <td>
+                  <EditableField
+                    value={item.unit_price}
+                    onUpdate={(value) => {
+                      this.updateInventoryItem(item._id, { unit_price: value })
+                    }}
+                  />
+                </td>
+                <td>
+                  <EditableField
+                    value={item.quantity}
+                    onUpdate={(value) => {
+                      this.updateInventoryItem(item._id, { quantity: value })
+                    }}
+                  />
+                </td>
+                <td align="center"><Button id={item._id} onClick={this.deleteItem} variant="outline-danger" size="sm">Delete</Button>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {this.state.inventory.map(item => {
-                return (
-                  <React.Fragment key={item.code}>
-                    <tr>
-                      <td>{item.code}</td>
-                      <td>{item.name}</td>
-                      <td>{item.unit_price}</td>
-                      <td>{item.quantity}</td>
-                      <td align="center"><Button id={item._id} onClick={this.deleteItem} variant="outline-danger" size="sm">Delete</Button></td>
-                    </tr>
-                  </React.Fragment>
-                )
-              })}
-            </tbody>
-          </Table>
-        </React.Fragment>
+            ))}
+          </tbody>
+        </Table>
       )
     }
     return (

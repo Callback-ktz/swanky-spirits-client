@@ -1,6 +1,9 @@
 import React from 'react'
 import axios from 'axios'
 import apiUrl from './../apiConfig.js'
+import Form from 'react-bootstrap/Form'
+import Col from 'react-bootstrap/Col'
+import Button from 'react-bootstrap/Button'
 
 class InventoryCreate extends React.Component {
   state = {
@@ -8,24 +11,30 @@ class InventoryCreate extends React.Component {
       code: '',
       name: '',
       unit_price: '',
-      quantity: ''
+      quantity: '',
+      items: []
     }
   }
   handleInputChange = (event) => {
-    // get the book key from the input name field
     const inventoryKey = event.target.name
-    // get the input value that the user typed in
     const value = event.target.value
-    // make a copy of the current state
     const inventoryCopy = Object.assign({}, this.state.inventory)
-    // update the copy with the new user input
     inventoryCopy[inventoryKey] = value
-    // update the state with our updated copy
     this.setState({ inventory: inventoryCopy })
   }
   handleSubmit = (event) => {
     event.preventDefault()
     console.log(this.props)
+
+    const items = [...this.state.inventory]
+
+    items.push({
+      code: this.state.inventory.code,
+      name: this.state.inventory.name,
+      unit_price: this.state.inventory.unit_price,
+      quantity: this.state.inventory.quantity
+    })
+
     axios({
       method: 'POST',
       url: apiUrl + '/inventory',
@@ -36,44 +45,66 @@ class InventoryCreate extends React.Component {
         inventory: this.state.inventory
       }
     })
-      .then(res => {
+      .then((response) => {
+        console.log(response.data)
+      })
+      .then(() => {
         this.setState({
-          inventory: {
-            code: '',
-            name: '',
-            unit_price: '',
-            quantity: ''
-          }
+          inventory: this.state.inventory.map(item => (
+            <tr key={item._id}>
+              <td>{item.code}</td>
+              <td>{item.name}</td>
+              <td>{item.unit_price}</td>
+              <td>{item.quantity}</td>
+            </tr>
+          ))
         })
       })
       .catch(console.error)
   }
+
   render () {
     return (
       <div>
-        <form onSubmit={this.handleSubmit} style={{ display: 'flex' }}>
-          <input onChange={this.handleInputChange}
-            value={this.state.inventory.code}
-            type="text"
-            name="code"
-            placeholder="Enter product code here"
-          />
-          <input onChange={this.handleInputChange}
-            value={this.state.inventory.name}
-            name="name"
-            placeholder="Enter name of liquor here" />
-          <input onChange={this.handleInputChange}
-            value={this.state.inventory.unit_price}
-            name="unit_price"
-            placeholder="Enter Unit Price Here" />
-          <input onChange={this.handleInputChange}
-            value={this.state.inventory.quantity}
-            name="quantity"
-            placeholder="Enter product quantity here" />
-          <button type="submit">Add</button>
-        </form>
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Row>
+            <Col>
+              <Form.Control
+                onChange={this.handleInputChange}
+                value={this.state.inventory.code}
+                type="text"
+                name="code"
+                placeholder="Enter product code" />
+            </Col>
+            <Col xs={5}>
+              <Form.Control
+                onChange={this.handleInputChange}
+                value={this.state.inventory.name}
+                name="name"
+                placeholder="Enter product name" />
+            </Col>
+            <Col>
+              <Form.Control
+                onChange={this.handleInputChange}
+                value={this.state.inventory.unit_price}
+                name="unit_price"
+                className="unit-price"
+                placeholder="Enter unit price" />
+            </Col>
+            <Col>
+              <Form.Control
+                onChange={this.handleInputChange}
+                value={this.state.inventory.quantity}
+                name="quantity"
+                placeholder="Enter quantity" />
+            </Col>
+          </Form.Row>
+          <br />
+          <Button type="submit" variant="primary" size="lg" block>Add</Button>
+        </Form>
       </div>
     )
   }
 }
+
 export default InventoryCreate

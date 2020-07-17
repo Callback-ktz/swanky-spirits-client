@@ -39,6 +39,8 @@ class InventoryIndex extends React.Component {
       }
     })
       .then(response => {
+        console.log('did we get the response ', response)
+
         this.setState({
           inventory: response.data.inventory
         })
@@ -66,7 +68,7 @@ class InventoryIndex extends React.Component {
   }
 
   render () {
-    console.log(this.state)
+    console.log('state is ', this.state)
     let inventoryJSX
     if (this.state.inventory === null) {
       inventoryJSX = <p>Loading...</p>

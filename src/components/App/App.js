@@ -45,7 +45,6 @@ class App extends Component {
           />
         ))}
         <main className="container">
-          <InventoryCreate user={user}/>
           <Route path='/sign-up' render={() => (
             <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
           )} />
@@ -60,6 +59,9 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/inventory' render={() => (
             <InventoryIndex msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/inventory' render={() => (
+            <InventoryCreate msgAlert={this.msgAlert} user={user} />
           )} />
         </main>
       </Fragment>

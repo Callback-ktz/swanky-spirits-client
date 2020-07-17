@@ -2,6 +2,7 @@ import React from 'react'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import EditableField from './EditableField'
+// import UserField from './UserField'
 import axios from 'axios'
 import apiUrl from './../apiConfig.js'
 
@@ -20,12 +21,31 @@ class InventoryIndex extends React.Component {
         'Authorization': `Bearer ${this.props.user.token}`
       }
     })
+      .then((response) => console.log(response.data))
       .then(response => {
         this.setState({
           inventory: [...this.state.inventory.filter(item => item._id !== event.target.id)]
         })
       })
       .catch(console.error)
+  }
+
+  getRequest = () => {
+    axios({
+      url: apiUrl + '/inventory',
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${this.props.user.token}`
+      }
+    })
+      .then(response => {
+        this.setState({
+          inventory: response.data.inventory
+        })
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
 
   componentDidMount () {
@@ -53,14 +73,16 @@ class InventoryIndex extends React.Component {
       headers: {
         'Authorization': `Bearer ${this.props.user.token}`
       },
-      data: { inventory: data }
+      data: {
+        inventory: {
+          name: data.name,
+          unit_price: data.unit_price,
+          quantity: data.quantity,
+          owner: data.owner
+        }
+      }
     })
-      .then(() => {
-        this.setState({
-          inventory: this.state.inventory.map(item => (
-            item._id === id ? { ...item, ...data } : item))
-        })
-      })
+      .then(() => this.getRequest())
   }
 
   render () {
@@ -75,7 +97,7 @@ class InventoryIndex extends React.Component {
         <Table striped bordered hover variant="dark">
           <thead>
             <tr>
-              <th>Code</th>
+              <th>User</th>
               <th>Name</th>
               <th>Unit Price</th>
               <th>Quantity</th>
@@ -86,18 +108,13 @@ class InventoryIndex extends React.Component {
             {this.state.inventory.map(item => (
               <tr key={item._id}>
                 <td>
-                  <EditableField
-                    value={item.code}
-                    onUpdate={(value) => {
-                      this.updateInventoryItem(item._id, { code: value })
-                    }}
-                  />
+                  {item.owner.email}
                 </td>
                 <td>
                   <EditableField
                     value={item.name}
                     onUpdate={(value) => {
-                      this.updateInventoryItem(item._id, { name: value })
+                      this.updateInventoryItem(item._id, { name: value, owner: this.props.user._id })
                     }}
                   />
                 </td>
@@ -105,7 +122,7 @@ class InventoryIndex extends React.Component {
                   <EditableField
                     value={item.unit_price}
                     onUpdate={(value) => {
-                      this.updateInventoryItem(item._id, { unit_price: value })
+                      this.updateInventoryItem(item._id, { unit_price: value, owner: this.props.user._id })
                     }}
                   />
                 </td>
@@ -113,7 +130,7 @@ class InventoryIndex extends React.Component {
                   <EditableField
                     value={item.quantity}
                     onUpdate={(value) => {
-                      this.updateInventoryItem(item._id, { quantity: value })
+                      this.updateInventoryItem(item._id, { quantity: value, owner: this.props.user._id })
                     }}
                   />
                 </td>

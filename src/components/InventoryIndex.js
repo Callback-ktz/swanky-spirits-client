@@ -1,14 +1,33 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table'
+import Button from 'react-bootstrap/Button'
+import EditableField from './EditableField'
 import axios from 'axios'
 import apiUrl from './../apiConfig.js'
-import EditableField from './EditableField'
-// import Button from 'react-bootstrap/Button'
-// import ContentEditable from 'react-contenteditable'
+// import InputGroup from 'react-bootstrap/InputGroup'
+// import FormControl from 'react-bootstrap/FormControl'
 
 class InventoryIndex extends React.Component {
   state= {
     inventory: null
+  }
+
+  deleteItem = (event) => {
+    event.persist()
+    console.log('someone done clicked me!', this.props, event.target.id, this.state)
+    axios({
+      method: 'DELETE',
+      url: apiUrl + '/inventory/' + event.target.id,
+      headers: {
+        'Authorization': `Bearer ${this.props.user.token}`
+      }
+    })
+      .then(response => {
+        this.setState({
+          inventory: [...this.state.inventory.filter(item => item._id !== event.target.id)]
+        })
+      })
+      .catch(console.error)
   }
 
   componentDidMount () {
@@ -20,6 +39,8 @@ class InventoryIndex extends React.Component {
       }
     })
       .then(response => {
+        console.log('did we get the response ', response)
+
         this.setState({
           inventory: response.data.inventory
         })
@@ -47,7 +68,7 @@ class InventoryIndex extends React.Component {
   }
 
   render () {
-    console.log(this.state)
+    console.log('state is ', this.state)
     let inventoryJSX
     if (this.state.inventory === null) {
       inventoryJSX = <p>Loading...</p>
@@ -55,14 +76,14 @@ class InventoryIndex extends React.Component {
       inventoryJSX = <p>No items currently in inventory</p>
     } else {
       inventoryJSX = (
-        <Table responsive="md" striped bordered hover variant="dark">
+        <Table striped bordered hover variant="dark">
           <thead>
             <tr>
               <th>Code</th>
               <th>Name</th>
               <th>Unit Price</th>
               <th>Quantity</th>
-              <th>Actions</th>
+              <th width={'10%'}></th>
             </tr>
           </thead>
           <tbody>
@@ -84,8 +105,10 @@ class InventoryIndex extends React.Component {
                     }}
                   />
                 </td>
-                <td>
+                <td style={{ display: 'flex' }} className="editNumber">
+                  {/* $&nbsp; */}
                   <EditableField
+                    type='number'
                     value={item.unit_price}
                     onUpdate={(value) => {
                       this.updateInventoryItem(item._id, { unit_price: value })
@@ -99,6 +122,8 @@ class InventoryIndex extends React.Component {
                       this.updateInventoryItem(item._id, { quantity: value })
                     }}
                   />
+                </td>
+                <td align="center"><Button id={item._id} onClick={this.deleteItem} variant="outline-danger" size="sm">Delete</Button>
                 </td>
               </tr>
             ))}

@@ -9,6 +9,7 @@ import SignIn from '../SignIn/SignIn'
 import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
 import InventoryIndex from './../InventoryIndex.js'
+import InventoryCreate from './../InventoryCreate'
 
 class App extends Component {
   constructor () {
@@ -58,6 +59,9 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/inventory' render={() => (
             <InventoryIndex msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/inventory' render={() => (
+            <InventoryCreate msgAlert={this.msgAlert} user={user} />
           )} />
         </main>
       </Fragment>

@@ -13,13 +13,16 @@ class EditableField extends React.Component {
     return (
       this.state.editing ? (
         <input
-          type={this.props.type || 'text'}
+          type='text'
+          className='form-control'
           value={this.state.value}
           pattern={this.props.pattern}
           ref={this.textInput}
-          min="0"
-          max="999"
-          onBlur={ () => {
+          onBlur={ (event) => {
+            if (this.state.value.length === 0) {
+              event.preventDefault()
+              return
+            }
             this.props.onUpdate(this.state.value)
             this.setState({
               editing: false

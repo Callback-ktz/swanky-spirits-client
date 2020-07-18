@@ -19,8 +19,8 @@ class EditableField extends React.Component {
           pattern={this.props.pattern}
           ref={this.textInput}
           onBlur={ (event) => {
-            if (this.state.value.length === 0) {
-              event.preventDefault()
+            if (!this.state.value || this.state.value.length === 0) {
+              event.target.focus()
               return
             }
             this.props.onUpdate(this.state.value)
@@ -35,7 +35,7 @@ class EditableField extends React.Component {
           }}
         />
       ) : (
-        <span onClick={ () => {
+        <span tabIndex='0' onFocus={ () => {
           this.setState({
             editing: true
           }, () => {

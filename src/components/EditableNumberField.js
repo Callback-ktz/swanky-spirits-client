@@ -41,7 +41,7 @@ class EditableNumberField extends React.Component {
           }}
         />
       ) : (
-        <span onClick={ () => {
+        <span tabIndex='0' onFocus={ () => {
           this.setState({
             editing: true
           }, () => {

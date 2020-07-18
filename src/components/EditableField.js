@@ -16,6 +16,8 @@ class EditableField extends React.Component {
           type="text"
           value={this.state.value}
           ref={this.textInput}
+          min="0"
+          max="99"
           onBlur={ () => {
             this.props.onUpdate(this.state.value)
             this.setState({

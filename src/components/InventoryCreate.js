@@ -108,8 +108,8 @@ class InventoryCreate extends React.Component {
                 placeholder="Enter quantity"
                 required={true} />
             </Col>
+            <Button type="submit" variant="add-btn" size="small">Add</Button>
           </Form.Row>
-          <Button type="submit" variant="primary" size="md" block>Add</Button>
         </Form>
       </div>
     )

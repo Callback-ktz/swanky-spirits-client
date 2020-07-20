@@ -109,7 +109,7 @@ class InventoryIndex extends React.Component {
           <br />
           <InventoryCreate getRequest={this.getRequest} user={this.props.user} inventory={this.state.inventory} msgAlert={this.props.msgAlert}></InventoryCreate>
           <br />
-          <Table striped bordered hover variant="dark">
+          <Table striped bordered hover variant="light">
             <thead>
               <tr>
                 <th>User</th>
@@ -165,6 +165,7 @@ class InventoryIndex extends React.Component {
     }
     return (
       <div>
+        <img src="https://i.imgur.com/A1XkMa4.png" alt="Logo" />
         {inventoryJSX}
       </div>
     )

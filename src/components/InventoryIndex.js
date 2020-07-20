@@ -105,67 +105,64 @@ class InventoryIndex extends React.Component {
       inventoryJSX = <p>No items currently in inventory</p>
     } else {
       inventoryJSX = (
-        <React.Fragment>
-          <br />
-          <InventoryCreate getRequest={this.getRequest} user={this.props.user} inventory={this.state.inventory} msgAlert={this.props.msgAlert}></InventoryCreate>
-          <br />
-          <Table striped bordered hover variant="light">
-            <thead>
-              <tr>
-                <th>User</th>
-                <th>Name</th>
-                <th>Unit Price</th>
-                <th>Quantity</th>
-                <th width={'10%'}></th>
+        <Table striped bordered hover variant="light">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Name</th>
+              <th>Unit Price</th>
+              <th>Quantity</th>
+              <th width={'10%'}></th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.inventory.reverse().map(item => (
+              <tr key={item._id}>
+                <td>
+                  {item.owner.email}
+                </td>
+                <td>
+                  <EditableField
+                    value={item.name}
+                    onUpdate={(value) => {
+                      this.updateInventoryItem(item._id, { name: value, owner: this.props.user._id })
+                    }}
+                  />
+                </td>
+                <td>
+                  <EditableNumberField
+                    value={item.unit_price}
+                    min={0}
+                    max={999.99}
+                    currency
+                    onUpdate={(value) => {
+                      this.updateInventoryItem(item._id, { unit_price: value, owner: this.props.user._id })
+                    }}
+                  />
+                </td>
+                <td>
+                  <EditableNumberField
+                    value={item.quantity}
+                    min={0}
+                    max={999}
+                    onUpdate={(value) => {
+                      this.updateInventoryItem(item._id, { quantity: value, owner: this.props.user._id })
+                    }}
+                  />
+                </td>
+                <td align="center"><Button id={item._id} onClick={this.deleteItem} variant="outline-danger" size="sm">Delete</Button>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {this.state.inventory.reverse().map(item => (
-                <tr key={item._id}>
-                  <td>
-                    {item.owner.email}
-                  </td>
-                  <td>
-                    <EditableField
-                      value={item.name}
-                      onUpdate={(value) => {
-                        this.updateInventoryItem(item._id, { name: value, owner: this.props.user._id })
-                      }}
-                    />
-                  </td>
-                  <td>
-                    <EditableNumberField
-                      value={item.unit_price}
-                      min={0}
-                      max={999.99}
-                      currency
-                      onUpdate={(value) => {
-                        this.updateInventoryItem(item._id, { unit_price: value, owner: this.props.user._id })
-                      }}
-                    />
-                  </td>
-                  <td>
-                    <EditableNumberField
-                      value={item.quantity}
-                      min={0}
-                      max={999}
-                      onUpdate={(value) => {
-                        this.updateInventoryItem(item._id, { quantity: value, owner: this.props.user._id })
-                      }}
-                    />
-                  </td>
-                  <td align="center"><Button id={item._id} onClick={this.deleteItem} variant="outline-danger" size="sm">Delete</Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        </React.Fragment>
+            ))}
+          </tbody>
+        </Table>
       )
     }
     return (
       <div>
         <img src="https://i.imgur.com/A1XkMa4.png" alt="Logo" />
+        <InventoryCreate getRequest={this.getRequest} user={this.props.user} inventory={this.state.inventory} msgAlert={this.props.msgAlert}></InventoryCreate>
+        <br />
         {inventoryJSX}
       </div>
     )

@@ -12,6 +12,17 @@ class EditableNumberField extends React.Component {
       editing: false
     }
   }
+
+  shouldComponentUpdate () {
+    return true
+  }
+
+  componentDidUpdate (prevProps) {
+    if (this.props.value !== prevProps.value) {
+      this.setState({ value: this.props.value })
+    }
+  }
+
   render = () => {
     return (
       this.state.editing ? (
@@ -34,6 +45,8 @@ class EditableNumberField extends React.Component {
             let newValue = calculateNumbers(+event.target.value, this.props.min, this.props.max)
             if (this.props.currency) {
               newValue = roundMoney(newValue)
+            } else {
+              newValue = Math.floor(newValue)
             }
             this.setState({
               value: newValue

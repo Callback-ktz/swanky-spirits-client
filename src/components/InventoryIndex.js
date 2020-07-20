@@ -6,6 +6,7 @@ import EditableNumberField from './EditableNumberField'
 import InventoryCreate from './InventoryCreate'
 import axios from 'axios'
 import apiUrl from './../apiConfig.js'
+import messages from './AutoDismissAlert/messages'
 
 class InventoryIndex extends React.Component {
   state= {
@@ -22,7 +23,11 @@ class InventoryIndex extends React.Component {
         'Authorization': `Bearer ${this.props.user.token}`
       }
     })
-      .then((response) => console.log(response.data))
+      .then(() => this.props.msgAlert({
+        heading: 'Delete Success',
+        message: messages.deleteSuccess,
+        variant: 'success'
+      }))
       .then(response => {
         this.setState({
           inventory: [...this.state.inventory.filter(item => item._id !== event.target.id)]
@@ -83,6 +88,11 @@ class InventoryIndex extends React.Component {
         }
       }
     })
+      .then(() => this.props.msgAlert({
+        heading: 'Update Success',
+        message: messages.updateSuccess,
+        variant: 'success'
+      }))
       .then(() => this.getRequest())
   }
 
@@ -97,7 +107,7 @@ class InventoryIndex extends React.Component {
       inventoryJSX = (
         <React.Fragment>
           <br />
-          <InventoryCreate getRequest={this.getRequest} user={this.props.user}></InventoryCreate>
+          <InventoryCreate getRequest={this.getRequest} user={this.props.user} inventory={this.state.inventory} msgAlert={this.props.msgAlert}></InventoryCreate>
           <br />
           <Table striped bordered hover variant="dark">
             <thead>
@@ -138,7 +148,7 @@ class InventoryIndex extends React.Component {
                     <EditableNumberField
                       value={item.quantity}
                       min={0}
-                      max={999.99}
+                      max={999}
                       onUpdate={(value) => {
                         this.updateInventoryItem(item._id, { quantity: value, owner: this.props.user._id })
                       }}

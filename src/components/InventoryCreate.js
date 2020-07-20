@@ -4,13 +4,15 @@ import apiUrl from './../apiConfig.js'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
+import messages from './AutoDismissAlert/messages'
 
 class InventoryCreate extends React.Component {
   state = {
     inventory: {
       name: '',
       unit_price: '',
-      quantity: ''
+      quantity: '',
+      inventoryItem: null
     }
   }
   handleInputChange = (event) => {
@@ -20,6 +22,7 @@ class InventoryCreate extends React.Component {
     inventoryCopy[inventoryKey] = value
     this.setState({ inventory: inventoryCopy })
   }
+
   handleSubmit = (event) => {
     event.preventDefault()
     this.setState({ inventory: {
@@ -27,18 +30,53 @@ class InventoryCreate extends React.Component {
       unit_price: '',
       quantity: ''
     } })
-    axios({
-      method: 'POST',
-      url: apiUrl + '/inventory',
-      headers: {
-        'Authorization': `Bearer ${this.props.user.token}`
-      },
-      data: {
-        inventory: this.state.inventory
-      }
+
+    const inventoryItem = this.props.inventory.find(item => {
+      return item.name === this.state.inventory.name
     })
-      .then(() => this.props.getRequest())
-      .catch(console.error)
+    console.log(inventoryItem)
+    if (!inventoryItem) {
+      axios({
+        method: 'POST',
+        url: apiUrl + '/inventory',
+        headers: {
+          'Authorization': `Bearer ${this.props.user.token}`
+        },
+        data: {
+          inventory: this.state.inventory
+        }
+      })
+        .then(() => this.props.msgAlert({
+          heading: 'Create Success',
+          message: messages.addedItemSuccess,
+          variant: 'success'
+        }))
+        .then(() => this.props.getRequest())
+        .catch(() => this.props.msgAlert({
+          heading: 'Create Failure',
+          message: messages.addedItemFailure,
+          variant: 'danger'
+        }))
+    } else if (inventoryItem) {
+      axios({
+        method: 'PATCH',
+        url: apiUrl + '/inventory/' + inventoryItem._id,
+        headers: {
+          'Authorization': `Bearer ${this.props.user.token}`
+        },
+        data: {
+          inventory: {
+            name: inventoryItem.name,
+            unit_price: inventoryItem.unit_price,
+            quantity: inventoryItem.quantity + +parseInt(this.state.inventory.quantity, 10),
+            owner: this.props.user._id
+          }
+        }
+      }
+      )
+        .then(() => this.props.getRequest())
+        .catch(console.error)
+    }
   }
 
   render () {
@@ -66,7 +104,9 @@ class InventoryCreate extends React.Component {
                 onChange={this.handleInputChange}
                 value={this.state.inventory.quantity}
                 name="quantity"
-                placeholder="Enter quantity" />
+                type="number"
+                placeholder="Enter quantity"
+                required={true} />
             </Col>
           </Form.Row>
           <Button type="submit" variant="primary" size="md" block>Add</Button>

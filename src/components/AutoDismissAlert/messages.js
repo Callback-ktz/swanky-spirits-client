@@ -5,5 +5,9 @@ export default {
   signInFailure: 'Failed to sign in. Check your email and password and try again.',
   signOutSuccess: 'Come back soon!',
   changePasswordSuccess: 'Password changed successfully!',
-  changePasswordFailure: 'Failed to change passwords. Check your old password and try again.'
+  changePasswordFailure: 'Failed to change passwords. Check your old password and try again.',
+  addedItemSuccess: 'You\'ve added an inventory item.',
+  addedItemFailure: 'Make sure to input all fields to add an item',
+  deleteSuccess: 'Deleted successfully',
+  updateSuccess: 'Edited successfully'
 }

@@ -105,8 +105,6 @@ class InventoryIndex extends React.Component {
       inventoryJSX = (
         <React.Fragment>
           <br />
-          <InventoryCreate getRequest={this.getRequest} user={this.props.user} inventory={this.state.inventory} msgAlert={this.props.msgAlert}></InventoryCreate>
-          <br />
           <Table striped bordered hover variant="light">
             <thead>
               <tr>
@@ -164,6 +162,7 @@ class InventoryIndex extends React.Component {
     return (
       <div>
         <img src="https://i.imgur.com/A1XkMa4.png" alt="Logo" />
+        <InventoryCreate getRequest={this.getRequest} user={this.props.user} inventory={this.state.inventory} msgAlert={this.props.msgAlert}></InventoryCreate>
         {inventoryJSX}
       </div>
     )

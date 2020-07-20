@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import EditableField from './EditableField'
 import InventoryCreate from './InventoryCreate'
+import AutoFillEditable from './AutoFillEditable'
 import axios from 'axios'
 import apiUrl from './../apiConfig.js'
 
@@ -115,7 +116,9 @@ class InventoryIndex extends React.Component {
                     {item.owner.email}
                   </td>
                   <td>
-                    <EditableField
+                    <AutoFillEditable
+                      inventory={this.state.inventory}
+                      user={this.props.user}
                       value={item.name}
                       onUpdate={(value) => {
                         this.updateInventoryItem(item._id, { name: value, owner: this.props.user._id })

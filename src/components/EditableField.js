@@ -14,9 +14,15 @@ class EditableField extends React.Component {
       this.state.editing ? (
         <input
           type="text"
+          className='form-control'
           value={this.state.value}
+          pattern={this.props.pattern}
           ref={this.textInput}
-          onBlur={ () => {
+          onBlur={ (event) => {
+            if (!this.state.value || this.state.value.length === 0) {
+              event.target.focus()
+              return
+            }
             this.props.onUpdate(this.state.value)
             this.setState({
               editing: false
@@ -29,13 +35,13 @@ class EditableField extends React.Component {
           }}
         />
       ) : (
-        <div onClick={ () => {
+        <span tabIndex='0' onFocus={ () => {
           this.setState({
             editing: true
           }, () => {
             this.textInput.current.focus()
           })
-        }}>{this.state.value}</div>
+        }}>{this.state.value}</span>
       )
     )
   }

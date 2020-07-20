@@ -2,6 +2,7 @@ import React from 'react'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import EditableField from './EditableField'
+import EditableNumberField from './EditableNumberField'
 import InventoryCreate from './InventoryCreate'
 import axios from 'axios'
 import apiUrl from './../apiConfig.js'
@@ -123,16 +124,21 @@ class InventoryIndex extends React.Component {
                     />
                   </td>
                   <td>
-                    <EditableField
+                    <EditableNumberField
                       value={item.unit_price}
+                      min={0}
+                      max={999.99}
+                      currency
                       onUpdate={(value) => {
                         this.updateInventoryItem(item._id, { unit_price: value, owner: this.props.user._id })
                       }}
                     />
                   </td>
                   <td>
-                    <EditableField
+                    <EditableNumberField
                       value={item.quantity}
+                      min={0}
+                      max={999.99}
                       onUpdate={(value) => {
                         this.updateInventoryItem(item._id, { quantity: value, owner: this.props.user._id })
                       }}

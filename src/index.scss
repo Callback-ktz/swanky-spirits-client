@@ -1,1 +1,28 @@
 @import '~bootstrap/scss/bootstrap';
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+td {
+  text-align: left;
+  font-weight: normal;
+}
+
+.row {
+  background: cadetblue;
+  margin: 20%;
+  padding-bottom: 6%;
+  padding-left: 6%;
+  padding-right: 6%;
+}
+
+$theme-colors: ("primary": #daa938,
+);
+@import '~bootstrap/scss/bootstrap.scss';

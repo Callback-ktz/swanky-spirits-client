@@ -15,7 +15,6 @@ class InventoryIndex extends React.Component {
 
   deleteItem = (event) => {
     event.persist()
-    console.log('someone done clicked me!', this.props, event.target.id, this.state)
     axios({
       method: 'DELETE',
       url: apiUrl + '/inventory/' + event.target.id,
@@ -97,7 +96,6 @@ class InventoryIndex extends React.Component {
   }
 
   render () {
-    console.log(this.state)
     let inventoryJSX
     if (this.state.inventory === null) {
       inventoryJSX = <p>Loading...</p>

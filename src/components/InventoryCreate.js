@@ -34,7 +34,6 @@ class InventoryCreate extends React.Component {
     const inventoryItem = this.props.inventory.find(item => {
       return item.name === this.state.inventory.name
     })
-    console.log(inventoryItem)
     if (!inventoryItem) {
       axios({
         method: 'POST',

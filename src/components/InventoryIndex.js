@@ -138,7 +138,7 @@ class InventoryIndex extends React.Component {
                     <EditableNumberField
                       value={item.quantity}
                       min={0}
-                      max={999.99}
+                      max={999}
                       onUpdate={(value) => {
                         this.updateInventoryItem(item._id, { quantity: value, owner: this.props.user._id })
                       }}

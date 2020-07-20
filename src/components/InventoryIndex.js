@@ -4,8 +4,10 @@ import Button from 'react-bootstrap/Button'
 import EditableField from './EditableField'
 import EditableNumberField from './EditableNumberField'
 import InventoryCreate from './InventoryCreate'
+import Alert from 'react-bootstrap/Alert'
 import axios from 'axios'
 import apiUrl from './../apiConfig.js'
+import './../index.scss'
 
 class InventoryIndex extends React.Component {
   state= {
@@ -96,17 +98,16 @@ class InventoryIndex extends React.Component {
     } else {
       inventoryJSX = (
         <React.Fragment>
-          <br />
           <InventoryCreate getRequest={this.getRequest} user={this.props.user}></InventoryCreate>
           <br />
-          <Table striped bordered hover variant="dark">
+          <Table striped hover variant="light">
             <thead>
               <tr>
                 <th>User</th>
                 <th>Name</th>
                 <th>Unit Price</th>
                 <th>Quantity</th>
-                <th width={'10%'}></th>
+                <th width={'10%'}>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -155,7 +156,14 @@ class InventoryIndex extends React.Component {
     }
     return (
       <div>
+        <img src="https://i.imgur.com/A1XkMa4.png" alt="Logo" />
         {inventoryJSX}
+        <Alert variant="success">
+          <Alert.Heading>Important Message</Alert.Heading>
+          <p>
+    To edit your inputs, click on the column you would wish to update. Once finished, press tab to save your entry!
+          </p>
+        </Alert>
       </div>
     )
   }

@@ -46,7 +46,7 @@ class InventoryCreate extends React.Component {
       <div>
         <Form onSubmit={this.handleSubmit}>
           <Form.Row>
-            <Col xs={5}>
+            <Col xs={6}>
               <Form.Control
                 onChange={this.handleInputChange}
                 value={this.state.inventory.name}
@@ -68,8 +68,8 @@ class InventoryCreate extends React.Component {
                 name="quantity"
                 placeholder="Enter quantity" />
             </Col>
+            <Button type="submit" variant="add-btn" size="small">Add</Button>
           </Form.Row>
-          <Button type="submit" variant="primary" size="md" block>Add</Button>
         </Form>
       </div>
     )

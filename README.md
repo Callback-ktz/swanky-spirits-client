@@ -1,4 +1,4 @@
-# README
+![Swanky Logo](https://i.imgur.com/upwpD36.png)
 
 ## Swanky Spirits
 
@@ -24,9 +24,9 @@ We worked the entirery of the backend as a team. After our backend was up and ru
 
 ### Technologies Used
 
--On the BackEnd:
+- **On the BackEnd:**
 Express, MongoDB, Node.js, JavaScript, Curl, Heroku, Github
--On the FrontEnd:
+- **On the FrontEnd:**
 Axios, HTML, CSS, JavaScript, React, React Bootstrap, Github
 
 ### Original Wireframe
@@ -39,13 +39,13 @@ Axios, HTML, CSS, JavaScript, React, React Bootstrap, Github
 
 ### User Stories
 
--As a user, I want to be able to Sign-up;
--As a user, I want to be able to Sign-in to access my account;
--As a user, I want to Change-Pw and Sign-out from my app;
--As a user, I want to view the main-container with the products I have 10 at each time;
--As a user, I want to change between different pages of data;
--As a user, I want to be able to filter my search for a specific product.
--As a user, I want to merge products with same ID to existing product;
--As a user, I want to create a new product ID if none of that product exists yet in the table;
--As a user, I want to specify and edit unit price, total price and quantities of each product;
--As a user, I want to delete products.
+- As a user, I want to be able to Sign-up
+- As a user, I want to be able to Sign-in to access my account
+- As a user, I want to Change-Pw and Sign-out from my app
+- As a user, I want to view the main-container with the products I have 10 at each time
+- As a user, I want to change between different pages of data
+- As a user, I want to be able to filter my search for a specific product
+- As a user, I want to merge products with same ID to existing product;
+- As a user, I want to create a new product ID if none of that product exists yet in the table;
+- As a user, I want to specify and edit unit price, total price and quantities of each product;
+- As a user, I want to delete products.

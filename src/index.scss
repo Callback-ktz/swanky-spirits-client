@@ -40,6 +40,12 @@ html, body {
   background-size: cover;
 }
 
+.text {
+  color: orange;
+  font-weight: bold;
+  margin-top: 3%;
+}
+
 $theme-colors: (
   "primary": #000,
   "add-btn": orange

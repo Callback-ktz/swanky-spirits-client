@@ -100,7 +100,7 @@ class InventoryIndex extends React.Component {
     if (this.state.inventory === null) {
       inventoryJSX = <p>Loading...</p>
     } else if (this.state.inventory.length === 0) {
-      inventoryJSX = <p>No items currently in inventory</p>
+      inventoryJSX = <p className="text">No items currently in inventory</p>
     } else {
       inventoryJSX = (
         <React.Fragment>

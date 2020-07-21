@@ -9,5 +9,9 @@ export default {
   addedItemSuccess: 'You\'ve added an inventory item.',
   addedItemFailure: 'Make sure to input all fields to add an item',
   deleteSuccess: 'Deleted successfully',
-  updateSuccess: 'Edited successfully'
+  deleteFailure: 'Could not delete',
+  updateSuccess: 'Edited successfully',
+  updateFailure: 'Update Failure',
+  getFailure: 'Problem on getting lists',
+  componentFailure: 'Problem mounting component'
 }

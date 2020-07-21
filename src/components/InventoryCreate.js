@@ -74,7 +74,11 @@ class InventoryCreate extends React.Component {
       }
       )
         .then(() => this.props.getRequest())
-        .catch(console.error)
+        .catch(() => this.props.msgAlert({
+          heading: 'Update Failure',
+          message: messages.Failure,
+          variant: 'danger'
+        }))
     }
   }
 

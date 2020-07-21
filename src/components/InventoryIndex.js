@@ -32,7 +32,11 @@ class InventoryIndex extends React.Component {
           inventory: [...this.state.inventory.filter(item => item._id !== event.target.id)]
         })
       })
-      .catch(console.error)
+      .catch(() => this.props.msgAlert({
+        heading: 'Delete Failure',
+        message: messages.deleteFailure,
+        variant: 'danger'
+      }))
   }
 
   getRequest = () => {
@@ -48,9 +52,11 @@ class InventoryIndex extends React.Component {
           inventory: response.data.inventory
         })
       })
-      .catch(error => {
-        console.log(error)
-      })
+      .catch(() => this.props.msgAlert({
+        heading: 'Failure Getting Lists',
+        message: messages.getFailure,
+        variant: 'danger'
+      }))
   }
 
   componentDidMount () {
@@ -66,9 +72,11 @@ class InventoryIndex extends React.Component {
           inventory: response.data.inventory
         })
       })
-      .catch(error => {
-        console.log(error)
-      })
+      .catch(() => this.props.msgAlert({
+        heading: 'Component Mounting Failure',
+        message: messages.componentFailure,
+        variant: 'danger'
+      }))
   }
 
   updateInventoryItem (id, data) {
@@ -93,6 +101,11 @@ class InventoryIndex extends React.Component {
         variant: 'success'
       }))
       .then(() => this.getRequest())
+      .catch(() => this.props.msgAlert({
+        heading: 'Update Failure',
+        message: messages.Failure,
+        variant: 'danger'
+      }))
   }
 
   render () {

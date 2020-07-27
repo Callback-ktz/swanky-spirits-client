@@ -64,7 +64,7 @@ Gets the data for an individual item in the inventory and shows it on main table
 
 ### PATCH /inventory/:id
 
-Fully editable table realtime. No requirements. Once a user changes another user activity on the table, it will show them as the most updated owner of that change in the `user` row.
+Fully editable table realtime. No requirements. Once a user changes another user activity on the table, it will show them as the most updated owner of that change in the `user` column.
 
 ### DELETE /inventory/:id
 
